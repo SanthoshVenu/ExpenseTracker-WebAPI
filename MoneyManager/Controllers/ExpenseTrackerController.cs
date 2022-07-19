@@ -20,25 +20,25 @@ namespace MoneyManager.Controllers
         {
             _expenseTrackerBL = expenseTrackerBL;
             _mapper = mapper;
-        }
 
+        }
 
         [HttpGet]
         [Route("expenses-data")]
         public async Task<List<ExpenseTrackerViewModel>> GetAllExpenseData()
         {
-           var result= await _expenseTrackerBL.GetAllExpenseData();
-            return _mapper.Map<List<ExpenseTrackerViewModel>>(result);
-   
+            var result = await _expenseTrackerBL.GetAllExpenseData();
+            return result;
+
         }
 
         [HttpPost]
         [Route("add-data")]
 
-        public async Task<ExpenseTrackerViewModel> CreateNewData([FromBody] ExpenseTrackerModel expenseData)
+        public async Task<ExpenseTrackerViewModel> CreateNewData([FromBody] ExpenseTracker expenseData)
         {
             var result = await _expenseTrackerBL.CreateData(expenseData);
-            return _mapper.Map<ExpenseTrackerViewModel>(result);
+            return result;
 
         }
     }

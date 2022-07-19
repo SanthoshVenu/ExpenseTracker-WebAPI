@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MoneyManager.DAL.Models
 {
-    public partial class MoneyManagerModel
+    public partial class MoneyManager
     {
         public int ExpenseId { get; set; }
         public string UserName { get; set; }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MoneyManager.DAL.Models
 {
-    public partial class CurrencyMasterModel
+    public partial class CurrencyMaster
     {
         public int CurrencyId { get; set; }
         public string CurrencyName { get; set; }

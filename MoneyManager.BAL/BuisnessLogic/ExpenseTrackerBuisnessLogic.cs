@@ -1,40 +1,55 @@
-﻿using MoneyManager.BAL.Interfaces;
+﻿using AutoMapper;
+using MoneyManager.BAL.Interfaces;
 using MoneyManager.BAL.ViewModels;
 using MoneyManager.DAL.Contracts;
 using MoneyManager.DAL.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 
 namespace MoneyManager.BAL.BuisnessLogic
 {
-    public class ExpenseTrackerBuisnessLogic : Profile, IExpenseTrackerBuisnessLogic
+
+    public class ExpenseTrackerBuisnessLogic : IExpenseTrackerBuisnessLogic
     {
-        private readonly IRepository<ExpenseTrackerModel> _repository;
+        public dynamic mapper;
+        private readonly IRepository<ExpenseTracker> _repository;
+        private Mapper _mapper;
 
         public ExpenseTrackerBuisnessLogic()
         {
 
         }
-        public ExpenseTrackerBuisnessLogic(IRepository<ExpenseTrackerModel> repository)
+        public ExpenseTrackerBuisnessLogic(IRepository<ExpenseTracker> repository)
         {
             _repository = repository;
-
+            var _config = new MapperConfiguration(cfg => cfg.CreateMap<ExpenseTracker, ExpenseTrackerViewModel>());
+            _mapper = new Mapper(_config);
+            // CreateMap<ExpenseTrackerModel, ExpenseTrackerViewModel>();
             //CreateMap<ExpenseTrackerModel, ExpenseTrackerViewModel>()
             //    .ForMember(x => x.AccountNavigation, opt => opt.Ignore())
             //    .ForMember(x => x.CategoryNavigation, opt => opt.Ignore())
             //    .ForMember(x => x.SubCategoryNavigation, opt => opt.Ignore());
+            // MapConfig();
+
         }
 
- 
-        public async Task<List<ExpenseTrackerModel>> GetAllExpenseData()
+        //public void MapConfig()
+        //{
+        //    var config = new MapperConfiguration(cfg =>
+
+        //      cfg.CreateMap<ExpenseTrackerModel, ExpenseTrackerViewModel>()
+
+        //    );
+        //    mapper = new Mapper(config);
+        //}
+        public async Task<List<ExpenseTrackerViewModel>> GetAllExpenseData()
         {
-          List<ExpenseTrackerModel> expenseDataList = new List<ExpenseTrackerModel>();
-            expenseDataList = await _repository.FindAll();
-            return expenseDataList;
+            var expenseDataList = await _repository.FindAll();
+            var result = _mapper.Map<List<ExpenseTracker>, List<ExpenseTrackerViewModel>>(expenseDataList);
+            return result;
         }
 
-        public async Task<ExpenseTrackerModel> CreateData(ExpenseTrackerModel expenseData)
+        public async Task<ExpenseTrackerViewModel> CreateData(ExpenseTracker expenseData)
         {
             //ExpenseTrackerModel newData = new ExpenseTrackerModel()
             //{
@@ -43,7 +58,9 @@ namespace MoneyManager.BAL.BuisnessLogic
             //    Category= "Household",
 
             //}
-           return await _repository.Create(expenseData);
+            var createdData = await _repository.Create(expenseData);
+            var result = _mapper.Map<ExpenseTracker, ExpenseTrackerViewModel>(createdData);
+            return result;
 
         }
 

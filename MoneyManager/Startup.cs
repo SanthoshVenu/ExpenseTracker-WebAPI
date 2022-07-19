@@ -67,7 +67,8 @@ namespace MoneyManager
             var ConnectionString = Configuration.GetConnectionString("MbkDbConstr");
             services.AddDbContext<MONEYMANAGERContext>(options =>
                 options.UseSqlServer(ConnectionString));
-            services.AddTransient<IRepository<ExpenseTrackerModel>,RepositoryMoneyManager<ExpenseTrackerModel>>();
+           // services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(RepositoryMoneyManager<>));
             services.AddTransient<IExpenseTrackerBuisnessLogic, ExpenseTrackerBuisnessLogic>();
             services.AddMemoryCache();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
