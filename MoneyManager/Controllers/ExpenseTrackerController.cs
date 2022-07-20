@@ -13,10 +13,10 @@ namespace MoneyManager.Controllers
     [ApiController]
     public class ExpenseTrackerController : ControllerBase
     {
-        private readonly IExpenseTrackerBuisnessLogic _expenseTrackerBL;
+        private readonly IExpenseTracker _expenseTrackerBL;
         private readonly IMapper _mapper;
 
-        public ExpenseTrackerController(IExpenseTrackerBuisnessLogic expenseTrackerBL, IMapper mapper)
+        public ExpenseTrackerController(IExpenseTracker expenseTrackerBL, IMapper mapper)
         {
             _expenseTrackerBL = expenseTrackerBL;
             _mapper = mapper;
