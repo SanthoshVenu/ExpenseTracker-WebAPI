@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MoneyManager.DAL.Models
 {
-    public partial class AccountMasterModel
+    public partial class AccountMaster
     {
         public int AccountId { get; set; }
         public string AccountName { get; set; }

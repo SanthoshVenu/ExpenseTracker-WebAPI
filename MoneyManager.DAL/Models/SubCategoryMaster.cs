@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace MoneyManager.DAL.Models
 {
-    public partial class SubCategoryMasterModel
+    public partial class SubCategoryMaster
     {
         public int SubCategoryId { get; set; }
         public string SubCategoryName { get; set; }
         public int CategoryId { get; set; }
 
-        public virtual CategoryMasterModel Category { get; set; }
+        public virtual CategoryMaster Category { get; set; }
     }
 }

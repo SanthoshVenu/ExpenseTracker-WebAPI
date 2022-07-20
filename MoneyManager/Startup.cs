@@ -39,7 +39,7 @@ namespace MoneyManager
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json")
                     .Build();
-            
+
         }
 
 
@@ -67,21 +67,21 @@ namespace MoneyManager
             var ConnectionString = Configuration.GetConnectionString("MbkDbConstr");
             services.AddDbContext<MONEYMANAGERContext>(options =>
                 options.UseSqlServer(ConnectionString));
-            services.AddTransient<IRepository<ExpenseTrackerModel>,RepositoryMoneyManager<ExpenseTrackerModel>>();
-            services.AddTransient<IExpenseTrackerBuisnessLogic, ExpenseTrackerBuisnessLogic>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IExpenseTracker, ExpenseTrackerBusinessLogic>();
+            services.AddTransient<ICategories, CategoriesBusinessLogic>();
+            services.AddTransient<ISubCategory, SubCategoriesBuisnessLogic>();
+            services.AddTransient<IAccount, AccountBuisnessLogic>();
             services.AddMemoryCache();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAutoMapper(typeof(Startup));
-            //var mapperConfig = new MapperConfiguration(mc => {
-            //    mc.AddProfile(new MappingProfile());
-            //});
-            //IMapper mapper = mapperConfig.CreateMapper();
-            //services.AddSingleton(mapper);
+
 
 
 
             // Adding Routing Middleware
-             services.AddRouting();
+            services.AddRouting();
             services.AddMvc();
             services.AddControllers();
             services.Configure<RouteOptions>(option => option.ConstraintMap.Add("weather", typeof(DomainConstraint)));

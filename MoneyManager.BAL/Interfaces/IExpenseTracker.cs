@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MoneyManager.BAL.Interfaces
 {
-    public interface IExpenseTrackerBuisnessLogic
+    public interface IExpenseTracker
     {
-        Task<List<ExpenseTrackerModel>> GetAllExpenseData();
-        Task<ExpenseTrackerModel> CreateData(ExpenseTrackerModel expenseData);
+        Task<List<ExpenseTrackerViewModel>> GetAllExpenseData();
+        Task<ExpenseTrackerViewModel> CreateData(ExpenseTracker expenseData);
     }
 }

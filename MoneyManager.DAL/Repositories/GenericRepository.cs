@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace MoneyManager.DAL.Repositories
 {
-    public class RepositoryMoneyManager <T> : IRepository<T> where T:class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly DbSet<T> _dbset;
         private readonly MONEYMANAGERContext _moneyDbContext;
         private readonly ILogger _logger;
-        public RepositoryMoneyManager(ILogger<T> logger, MONEYMANAGERContext moneyDbContext)
+        public GenericRepository(ILogger<T> logger, MONEYMANAGERContext moneyDbContext)
         {
             _logger = logger;
             _dbset = moneyDbContext.Set<T>();
@@ -25,7 +25,7 @@ namespace MoneyManager.DAL.Repositories
         {
             try
             {
-                if(_objExpenseData != null)
+                if (_objExpenseData != null)
                 {
                     var obj = _dbset.Add(_objExpenseData);
                     await _moneyDbContext.SaveChangesAsync();
@@ -42,31 +42,31 @@ namespace MoneyManager.DAL.Repositories
             }
         }
 
-       public void Delete(T _objExpenseData)
+        public void Delete(T _objExpenseData)
         {
             try
             {
-                if(_objExpenseData != null)
+                if (_objExpenseData != null)
                 {
                     var obj = _dbset.Remove(_objExpenseData);
-                    if(obj != null)
+                    if (obj != null)
                     {
                         _moneyDbContext.SaveChangesAsync();
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-       public async Task<List<T>> FindAll()
+        public async Task<List<T>> GetAll()
         {
             try
             {
-                var dataList =  _dbset.ToList();
-                if (dataList != null) return  dataList;
+                var dataList = _dbset.ToList();
+                if (dataList != null) return dataList;
                 else return null;
             }
             catch (Exception)
@@ -75,12 +75,12 @@ namespace MoneyManager.DAL.Repositories
             }
         }
 
-       public List<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public async Task<T> GetById(int id)
         {
             try
             {
 
-                return _dbset.Where(predicate).ToList();
+                return await _dbset.FindAsync(id);
             }
             catch (Exception)
             {
@@ -98,10 +98,10 @@ namespace MoneyManager.DAL.Repositories
             {
                 throw;
             }
-            
+
         }
 
-        public  void Update(T _objExpenseData)
+        public void Update(T _objExpenseData)
         {
             try
             {
@@ -115,6 +115,10 @@ namespace MoneyManager.DAL.Repositories
             {
                 throw;
             }
+        }
+        public void Save()
+        {
+            _moneyDbContext.SaveChanges();
         }
     }
 }

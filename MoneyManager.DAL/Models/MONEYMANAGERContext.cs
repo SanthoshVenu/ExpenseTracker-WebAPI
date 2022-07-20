@@ -17,12 +17,12 @@ namespace MoneyManager.DAL.Models
         {
         }
 
-        public virtual DbSet<AccountMasterModel> AccountMasters { get; set; }
-        public virtual DbSet<CategoryMasterModel> CategoryMasters { get; set; }
-        public virtual DbSet<CurrencyMasterModel> CurrencyMasters { get; set; }
-        public virtual DbSet<ExpenseTrackerModel> ExpenseTrackers { get; set; }
-        public virtual DbSet<MoneyManagerModel> MoneyManagers { get; set; }
-        public virtual DbSet<SubCategoryMasterModel> SubCategoryMasters { get; set; }
+        public virtual DbSet<AccountMaster> AccountMasters { get; set; }
+        public virtual DbSet<CategoryMaster> CategoryMasters { get; set; }
+        public virtual DbSet<CurrencyMaster> CurrencyMasters { get; set; }
+        public virtual DbSet<ExpenseTracker> ExpenseTrackers { get; set; }
+        public virtual DbSet<MoneyManager> MoneyManagers { get; set; }
+        public virtual DbSet<SubCategoryMaster> SubCategoryMasters { get; set; }
         public virtual DbSet<VwAllColumnsPrimarykey> VwAllColumnsPrimarykeys { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,7 +36,7 @@ namespace MoneyManager.DAL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AccountMasterModel>(entity =>
+            modelBuilder.Entity<AccountMaster>(entity =>
             {
                 entity.HasKey(e => e.AccountId);
 
@@ -51,7 +51,7 @@ namespace MoneyManager.DAL.Models
                     .IsFixedLength(true);
             });
 
-            modelBuilder.Entity<CategoryMasterModel>(entity =>
+            modelBuilder.Entity<CategoryMaster>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
 
@@ -66,7 +66,7 @@ namespace MoneyManager.DAL.Models
                     .IsFixedLength(true);
             });
 
-            modelBuilder.Entity<CurrencyMasterModel>(entity =>
+            modelBuilder.Entity<CurrencyMaster>(entity =>
             {
                 entity.HasKey(e => e.CurrencyId);
 
@@ -80,11 +80,9 @@ namespace MoneyManager.DAL.Models
                     .IsFixedLength(true);
             });
 
-            modelBuilder.Entity<ExpenseTrackerModel>(entity =>
+            modelBuilder.Entity<ExpenseTracker>(entity =>
             {
                 entity.ToTable("ExpenseTracker", "mm");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Account)
                     .HasMaxLength(20)
@@ -116,7 +114,7 @@ namespace MoneyManager.DAL.Models
                     .IsFixedLength(true);
             });
 
-            modelBuilder.Entity<MoneyManagerModel>(entity =>
+            modelBuilder.Entity<MoneyManager>(entity =>
             {
                 entity.HasKey(e => e.ExpenseId);
 
@@ -151,7 +149,7 @@ namespace MoneyManager.DAL.Models
                     .IsFixedLength(true);
             });
 
-            modelBuilder.Entity<SubCategoryMasterModel>(entity =>
+            modelBuilder.Entity<SubCategoryMaster>(entity =>
             {
                 entity.HasKey(e => e.SubCategoryId);
 

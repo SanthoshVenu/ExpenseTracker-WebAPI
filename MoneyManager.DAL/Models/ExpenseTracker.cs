@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace MoneyManager.DAL.Models
 {
-    public partial class ExpenseTrackerModel
+    public partial class ExpenseTracker
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Account { get; set; }
         public string Category { get; set; }
         public string SubCategory { get; set; }

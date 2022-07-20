@@ -13,32 +13,32 @@ namespace MoneyManager.Controllers
     [ApiController]
     public class ExpenseTrackerController : ControllerBase
     {
-        private readonly IExpenseTrackerBuisnessLogic _expenseTrackerBL;
+        private readonly IExpenseTracker _expenseTrackerBL;
         private readonly IMapper _mapper;
 
-        public ExpenseTrackerController(IExpenseTrackerBuisnessLogic expenseTrackerBL, IMapper mapper)
+        public ExpenseTrackerController(IExpenseTracker expenseTrackerBL, IMapper mapper)
         {
             _expenseTrackerBL = expenseTrackerBL;
             _mapper = mapper;
-        }
 
+        }
 
         [HttpGet]
         [Route("expenses-data")]
         public async Task<List<ExpenseTrackerViewModel>> GetAllExpenseData()
         {
-           var result= await _expenseTrackerBL.GetAllExpenseData();
-            return _mapper.Map<List<ExpenseTrackerViewModel>>(result);
-   
+            var result = await _expenseTrackerBL.GetAllExpenseData();
+            return result;
+
         }
 
         [HttpPost]
         [Route("add-data")]
 
-        public async Task<ExpenseTrackerViewModel> CreateNewData([FromBody] ExpenseTrackerModel expenseData)
+        public async Task<ExpenseTrackerViewModel> CreateNewData([FromBody] ExpenseTracker expenseData)
         {
             var result = await _expenseTrackerBL.CreateData(expenseData);
-            return _mapper.Map<ExpenseTrackerViewModel>(result);
+            return result;
 
         }
     }
