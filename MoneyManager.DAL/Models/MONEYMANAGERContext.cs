@@ -92,14 +92,14 @@ namespace MoneyManager.DAL.Models
                     .HasMaxLength(50)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Cost)
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
-
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Description)
-                    .HasMaxLength(10)
+                    .HasMaxLength(300)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.ExpenseName)
+                    .HasMaxLength(100)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.IncomeExpenses)

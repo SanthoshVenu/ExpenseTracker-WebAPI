@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.BAL.Interfaces;
 using MoneyManager.BAL.ViewModels;
-using MoneyManager.DAL.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
