@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.BAL.Interfaces;
 using MoneyManager.BAL.ViewModels;
-using MoneyManager.DAL.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MoneyManager.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -45,11 +45,11 @@ namespace MoneyManager.Controllers
         }
 
         [HttpGet]
-        [Route("subcategory-data/categoryid")]
+        [Route("subcategory-data/{categoryid}")]
 
-        public async Task<string[]> GetSubCategoryByCategoryId(int id)
+        public async Task<string[]> GetSubCategoryByCategoryId(int categoryid)
         {
-            var result = await _subcategoryBL.GetSubCategoriesByCategoryId(id);
+            var result = await _subcategoryBL.GetSubCategoriesByCategoryId(categoryid);
             return result;
         }
 

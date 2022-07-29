@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace MoneyManager.DAL.Models
+namespace MoneyManager.Models
 {
     public partial class MONEYMANAGERContext : DbContext
     {
@@ -18,12 +18,9 @@ namespace MoneyManager.DAL.Models
         }
 
         public virtual DbSet<AccountMaster> AccountMasters { get; set; }
-        public virtual DbSet<BudgetMaster> BudgetMasters { get; set; }
         public virtual DbSet<CategoryMaster> CategoryMasters { get; set; }
         public virtual DbSet<CurrencyMaster> CurrencyMasters { get; set; }
         public virtual DbSet<ExpenseTracker> ExpenseTrackers { get; set; }
-        public virtual DbSet<IncomeDetail> IncomeDetails { get; set; }
-        public virtual DbSet<IncomeSourceMaster> IncomeSourceMasters { get; set; }
         public virtual DbSet<MoneyManager> MoneyManagers { get; set; }
         public virtual DbSet<SubCategoryMaster> SubCategoryMasters { get; set; }
         public virtual DbSet<VwAllColumnsPrimarykey> VwAllColumnsPrimarykeys { get; set; }
@@ -52,23 +49,6 @@ namespace MoneyManager.DAL.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<BudgetMaster>(entity =>
-            {
-                entity.HasKey(e => e.BudgetId);
-
-                entity.ToTable("BudgetMaster", "mm");
-
-                entity.Property(e => e.BudgetName).HasMaxLength(100);
-
-                entity.Property(e => e.Month).HasMaxLength(50);
-
-                entity.Property(e => e.RemainingCash).HasColumnType("money");
-
-                entity.Property(e => e.TotalExpenses).HasColumnType("money");
-
-                entity.Property(e => e.TotalIncome).HasColumnType("money");
             });
 
             modelBuilder.Entity<CategoryMaster>(entity =>
@@ -122,31 +102,6 @@ namespace MoneyManager.DAL.Models
                 entity.Property(e => e.SubCategory).HasMaxLength(50);
 
                 entity.Property(e => e.UserName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<IncomeDetail>(entity =>
-            {
-                entity.ToTable("IncomeDetails", "mm");
-
-                entity.Property(e => e.Amount).HasColumnType("money");
-
-                entity.Property(e => e.IncomeSourceName).HasMaxLength(50);
-
-                entity.Property(e => e.Month).HasMaxLength(50);
-
-                entity.HasOne(d => d.Source)
-                    .WithMany(p => p.IncomeDetails)
-                    .HasForeignKey(d => d.SourceId)
-                    .HasConstraintName("FK_IncomeDetails_IncomeSourceMaster");
-            });
-
-            modelBuilder.Entity<IncomeSourceMaster>(entity =>
-            {
-                entity.HasKey(e => e.IncomeId);
-
-                entity.ToTable("IncomeSourceMaster", "mm");
-
-                entity.Property(e => e.IncomeSource).HasMaxLength(50);
             });
 
             modelBuilder.Entity<MoneyManager>(entity =>

@@ -72,10 +72,12 @@ namespace MoneyManager
             services.AddTransient<ICategories, CategoriesBusinessLogic>();
             services.AddTransient<ISubCategory, SubCategoriesBuisnessLogic>();
             services.AddTransient<IAccount, AccountBuisnessLogic>();
+            services.AddTransient<IIncomeSource, IncomeSourceBusinessLogic>();
             services.AddMemoryCache();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAutoMapper(typeof(Startup));
+
 
 
 
@@ -100,6 +102,12 @@ namespace MoneyManager
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MoneyManager v1"));
             }
+            app.UseCors(x => x
+           .AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
+
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseAuthentication();

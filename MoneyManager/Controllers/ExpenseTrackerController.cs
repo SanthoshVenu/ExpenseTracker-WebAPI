@@ -33,8 +33,6 @@ namespace MoneyManager.Controllers
         }
 
         [HttpPost]
-        [Route("add-data")]
-
         public async Task<ExpenseTrackerViewModel> CreateNewData([FromBody] ExpenseTracker expenseData)
         {
             var result = await _expenseTrackerBL.CreateData(expenseData);
