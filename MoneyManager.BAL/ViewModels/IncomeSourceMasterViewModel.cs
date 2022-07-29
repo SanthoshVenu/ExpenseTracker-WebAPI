@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MoneyManager.BAL.ViewModels
 {
-    public class AccountMasterViewModel
+    public class IncomeSourceMasterViewModel
     {
-        public int PaymentModetId { get; set; }
-        public string PaymentModeName { get; set; }
+        public int IncomeId { get; set; }
+        public string IncomeSource { get; set; }
     }
 }
